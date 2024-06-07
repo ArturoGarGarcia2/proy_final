@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project{% endblock %}
+
+{% block body %}
+    <h1>Project</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ project.id }}</td>
+            </tr>
+            <tr>
+                <th>Cliente</th>
+                <td>{{ project.client.name }}</td>
+            </tr>
+            <tr>
+                <th>Superficie</th>
+                <td>{{ project.surface }}</td>
+            </tr>
+            <tr>
+                <th>Propiedad</th>
+                <td>{{ project.ownership }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ project.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_project_index') }}">back to list</a>
+
+    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+
+    {{ include('project/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,11 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+api_register:
+    path: /api/register
+api_login_check:
+    path: /api/login_check
+api_meeting:
+    path: /api/meeting
