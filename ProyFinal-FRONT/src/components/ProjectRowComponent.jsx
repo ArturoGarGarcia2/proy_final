@@ -3,7 +3,7 @@ import ApiService from "../utils/ApiService";
 import MiniSpinner from "./MiniSpinner";
 import { useNavigate } from "react-router-dom";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 
 const ProjectRowComponent = ({project}) => {
@@ -16,7 +16,7 @@ const ProjectRowComponent = ({project}) => {
             const response = await api.get(project.client.substring(5),localStorage.getItem('token'))
             setClient( prev => response.name === prev ? response.name : response.name)
         }catch(error){
-            console.log(error)
+            console.error(error)
         }finally{
             setLoading(false)
         }

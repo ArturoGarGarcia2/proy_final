@@ -4,7 +4,7 @@ import ContextComponent from "../../context/ContextComponent";
 import { allowRoleAbove, cureDate } from "../../utils/functions";
 import Swal from "sweetalert2";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const MeetingCard = ({ meeting, id }) => {
     const { userData } = useContext(ContextComponent);
@@ -144,8 +144,7 @@ const MeetingCard = ({ meeting, id }) => {
                         meetingViewed.state === 'accepted' ? (
                             <div className="flex flex-col gap-4">
                                 <span className="text-center bg-cyan-700 border-2 border-teal-900 rounded px-1 font-semibold">Aceptada</span>
-                                <button className={`bg-slate-500 hover:bg-slate-600 rounded py-1 px-2 ${allowRoleAbove(userData.roles,1) && cureDate(meeting.date).ddMMyyy === cureDate(new Date()).ddMMyyy }`} onClick={(e) => handleDone(e, meetingViewed.id)}>¿Cómo ha ido?</button>
-                                <button className="bg-slate-500 hover:bg-slate-600 rounded py-1 px-2" onClick={(e) => handleDone(e, meetingViewed.id)}>¿Realizada?</button>
+                                <button className={`bg-slate-500 hover:bg-slate-600 rounded py-1 px-2 ${allowRoleAbove(userData.roles,1) && cureDate(meeting.date).ddMMyyy === cureDate(new Date()).ddMMyyy }`} onClick={(e) => handleDone(e, meetingViewed.id)}>¿Realizada?</button>
                             </div>
                         ) :
                         meetingViewed.state === 'rejected' ? (

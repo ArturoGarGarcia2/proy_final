@@ -1,7 +1,7 @@
 
 class ApiService {
-	constructor(baseUrl) {
-	this.baseUrl = baseUrl;
+	constructor() {
+	this.baseUrl = 'http://127.0.0.1:8000/api';
 	}
 
 	async get(endpoint,authToken) {
@@ -46,7 +46,6 @@ class ApiService {
 	
 	async delete(endpoint, id, authToken) {
 		const url = `${this.baseUrl}/${endpoint}/${id}`;
-		console.log('3.1',url)
 		const response = await fetch(url, {
 			method: 'DELETE',
 			headers: {
@@ -54,7 +53,6 @@ class ApiService {
 				'Authorization': 'BEARER ' +authToken,
 			},
 		});
-		console.log('3.2',response)
 		return await response;
 	}
 

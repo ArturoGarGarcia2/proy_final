@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ContextComponent from "../context/ContextComponent";
 import ArrowUpwardSharpIcon from '@mui/icons-material/ArrowUpwardSharp';
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const ProjectsPage = () => {
     const { darkMode } = useContext(ContextComponent);
@@ -24,7 +24,6 @@ const ProjectsPage = () => {
             if (response['@context'] === '/api/contexts/Error') {
                 setError(response);
             } else if (response['hydra:member']) {
-                console.log('Projects data:', response['hydra:member']);
                 setActiveProjects(response['hydra:member'].filter(p => p.state === 'created' || p.state === 'accepted' || p.state === 'wip'));
                 setEndedProjects(response['hydra:member'].filter(p => p.state === 'abandoned' || p.state === 'finished' || p.state === 'rejected' || p.state === 'paused'));
             } else {

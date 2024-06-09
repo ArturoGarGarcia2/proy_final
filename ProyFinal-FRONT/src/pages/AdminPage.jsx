@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import ArrowUpwardSharpIcon from '@mui/icons-material/ArrowUpwardSharp';
 import ContextComponent from "../context/ContextComponent";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const AdminPage = () => {
     const { darkMode } = useContext(ContextComponent);
@@ -20,12 +20,12 @@ const AdminPage = () => {
         try {
             const response = await api.get('users', localStorage.getItem('token'));
             if (response['@context'] === '/api/contexts/Error') {
-                console.log('error en', response);
+                console.error('error en', response);
             } else {
                 setUsers(response['hydra:member']);
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
         } finally {
             setLoading(false);
         }
@@ -49,7 +49,7 @@ const AdminPage = () => {
                         : ['ROLE_ADMIN'];
                 const response = await api.patch('users',userId, { roles: newRoleChanged }, localStorage.getItem('token'));
                 if (response['@context'] === '/api/contexts/Error') {
-                    console.log('error en', response);
+                    console.error('error en', response);
                 } else {
                     setUsers(prevUsers => prevUsers.map(user => user.id === parseInt(userId) ? { ...user, roles: newRoleChanged } : user));
                 }
@@ -60,7 +60,7 @@ const AdminPage = () => {
                 text: 'Se han guardado los cambios correctamente'
             });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         } finally {
             setLoading(false);
         }

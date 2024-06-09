@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import ContextComponent from "../../context/ContextComponent";
 import Swal from "sweetalert2";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const BudgetCard = ({ budget }) => {
     const { darkMode, userData } = useContext(ContextComponent);

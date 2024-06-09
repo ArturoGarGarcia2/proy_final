@@ -5,14 +5,12 @@ import Swal from "sweetalert2";
 import ContextComponent from "../../context/ContextComponent";
 import MiniSpinner from "../MiniSpinner";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const MeetingComponent = ({meetingEndpoints,project}) => {
     const { userData } = useContext(ContextComponent);
     const [loading, setLoading] = useState(true)
     const [meetings, setMeetings] = useState([])
-
-    // console.log('meetingEndpoints)',meetingEndpoints)
 
     const handleNewMeeting = async () => {
         const { value: formValues } = await Swal.fire({
@@ -93,14 +91,14 @@ const MeetingComponent = ({meetingEndpoints,project}) => {
             for (const meetingEndpoint of uniqueMeetingEndpoints) {
                 const response = await api.get(meetingEndpoint.substring(5), localStorage.getItem('token'));
                 if (response['@context'] === '/api/contexts/Error') {
-                    console.log('error en', meetingEndpoint);
+                    console.error('error en', meetingEndpoint);
                 } else {
                     fetchedMeetings.push(response);
                 }
             }
             setMeetings(fetchedMeetings.sort((a, b) => new Date(a.date) - new Date(b.date)));
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }finally{
             setLoading(false);
         }

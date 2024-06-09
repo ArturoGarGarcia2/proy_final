@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Swal from 'sweetalert2';
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const NewProjectPage = () => {
     const { userData, setUserData, darkMode } = useContext(ContextComponent);

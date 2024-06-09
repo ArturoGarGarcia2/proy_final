@@ -6,7 +6,7 @@ import ContextComponent from "../context/ContextComponent";
 import MeetingPageComponent from "../components/MeetingPageComponent";
 import ArrowUpwardSharpIcon from '@mui/icons-material/ArrowUpwardSharp';
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const MeetingsPage = () => {
     const { darkMode } = useContext(ContextComponent);
@@ -20,7 +20,7 @@ const MeetingsPage = () => {
         try {
             const response = await api.get('meeting', localStorage.getItem('token'));
             if (response['@context'] === '/api/contexts/Error') {
-                console.log('error en', response);
+                console.error('error en', response);
             } else {
                 const preData = response.result;
 
@@ -41,7 +41,7 @@ const MeetingsPage = () => {
                 setPendingMeetings(filteredPendingMeetings);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }

@@ -1,12 +1,12 @@
 import ApiService from "./ApiService";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 export function cureDate(date){
     date = new Date(date);
     const days = ['Domingo','Lunes,','Martes','Miércoles','Jueves','Viernes','Sábado']
     const weekDay = days[date.getDay()];
-    const weekInitial = weekDay.trim().substring(0, 1);
+    const weekInitial = weekDay.substring(0, 1);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();

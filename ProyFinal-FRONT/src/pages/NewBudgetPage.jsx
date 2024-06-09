@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Swal from 'sweetalert2';
 import ContextComponent from "../context/ContextComponent";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const NewBudgetPage = () => {
     const navigate = useNavigate();
@@ -58,13 +58,10 @@ const NewBudgetPage = () => {
         });
 
         if (result.isConfirmed || result.isDenied) {
-            // Calcula el total de los capítulos
             const subtotal = chapters.reduce((acc, chapter) => acc + chapter.total, 0);
         
-            // Calcula el total con el IVA
             const total = subtotal * 1.21;
         
-            // Crea los datos del presupuesto
             const budgetData = {
                 budget: {
                     title: budget,
@@ -87,7 +84,7 @@ const NewBudgetPage = () => {
                     await api.post('chapters', { ...chapter, budget: budgetResponse['@id'] }, localStorage.getItem('token'));
                 }));
             } catch (error) {
-                console.log(error);
+                console.error(error);
             } finally {
                 setLoading(false);
                 navigate(-1);

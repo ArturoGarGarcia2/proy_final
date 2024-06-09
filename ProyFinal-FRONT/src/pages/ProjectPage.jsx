@@ -9,7 +9,7 @@ import BudgetComponent from '../components/budgets/BudgetComponent';
 import Swal from 'sweetalert2';
 import { allowRoleAbove } from '../utils/functions';
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 function ProjectPage() {
     const { projectId } = useParams();
@@ -27,8 +27,6 @@ function ProjectPage() {
         try {
             const response = await api.get('projects/'+projectId, localStorage.getItem('token'));
             setProject(response);
-
-            console.log(response)
 
             const nameResponse = await api.get(response.client.substring(5),localStorage.getItem('token'));
             setClient(prev => prev ? nameResponse.name : nameResponse.name);
@@ -59,7 +57,7 @@ function ProjectPage() {
 
         } catch (error) {
             setError(true);
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -178,7 +176,7 @@ function ProjectPage() {
                         </div>
 
                         <div>
-                            <div className='flex gap-2 mb-10 mt-10'>
+                            <div className={`flex flex-wrap lg:flex-nowrap gap-8 lg:gap-2 mb-10 mt-10 p-2 ${darkMode ? 'bg-slate-800' : 'bg-slate-300'}`}>
                             <h2 className='w-1/6'><span className='font-semibold text-lg'>Dirección del proyecto:</span> <br /> {project.address}</h2>
                             <br />
                             <h2 className='w-1/6'><span className='font-semibold text-lg'>Superficie:</span> <br /> {project.surface}m²</h2>

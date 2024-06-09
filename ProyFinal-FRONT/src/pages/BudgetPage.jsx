@@ -7,7 +7,7 @@ import ChapterComponent from "../components/chapter/ChapterComponent";
 import ContextComponent from "../context/ContextComponent";
 import Swal from "sweetalert2";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const BudgetPage = () => {
     const { darkMode, userData } = useContext(ContextComponent);
@@ -19,12 +19,12 @@ const BudgetPage = () => {
         try {
             const response = await api.get(`budgets/${budgetId}`, localStorage.getItem('token'));
             if (response['@context'] === '/api/contexts/Error') {
-                console.log('error en', response);
+                console.error('error en', response);
             } else {
                 setBudget(response);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }

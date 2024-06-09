@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ApiService from "../../utils/ApiService";
 import MiniSpinner from "../MiniSpinner";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const ChapterComponent = ({ chapterEndpoint }) => {
     const [chapter, setChapter] = useState({});
@@ -12,12 +12,12 @@ const ChapterComponent = ({ chapterEndpoint }) => {
         try {
             const response = await api.get(chapterEndpoint.substring(5), localStorage.getItem('token'));
             if (response['@context'] === '/api/contexts/Error') {
-                console.log('error en', response);
+                console.error('error en', response);
             } else {
                 setChapter(response);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }

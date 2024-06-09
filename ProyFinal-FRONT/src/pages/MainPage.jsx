@@ -8,7 +8,7 @@ const MainPage = () => {
         <div className="w-5/6 m-auto">
             <h1 className='font-bold mb-10 text-center mt-24 text-5xl'>Reformas Hee Hee</h1>
 			
-			<div className={`flex gap-6 [&>*]:w-1/2 ${darkMode? '[&>*]:bg-slate-800':'[&>*]:bg-slate-300'} [&>*]:p-8 [&>*]:rounded-lg [&>*]:shadow-xl`}>
+			<div className={`flex flex-col lg:flex-row gap-6 [&>*]:w-full lg:[&>*]:w-1/2 ${darkMode? '[&>*]:bg-slate-800':'[&>*]:bg-slate-300'} [&>*]:p-8 [&>*]:rounded-lg [&>*]:shadow-xl`}>
 				<div>
 					{/* <p className="text-2xl underline mb-4 font-bold">¡Bienvenido a Hee Hee!</p> */}
 					<p className="underline text-2xl mb-2">Transformamos Sueños en Realidad</p>

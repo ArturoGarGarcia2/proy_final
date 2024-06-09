@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import ContextComponent from "../context/ContextComponent";
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
@@ -13,26 +13,15 @@ import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 
 const SideNav = () => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { wideMode, setWideMode, logged, darkMode, setDarkMode, userData } = useContext(ContextComponent);
 
     const handleClick = () => setWideMode(!wideMode);
-
-    const handleTest = () => {
-        console.log(userData);
-        console.log(userData.roles);
-        console.log('allowRoleEqual', allowRoleEqual(userData.roles, 'ROLE_USER'));
-        console.log('Visibilidad del', logged && allowRoleEqual(userData.roles, 0));
-        console.log(location);
-        console.log(location.pathname);
-    }
 
     const handleHome = () => navigate('');
 
     const handleProject = () => {
         if (userData.projects.length > 0) {
             const project = userData.projects[0].split('/');
-            console.log('project', project);
             const projectId = project[project.length - 1];
             navigate(`/project/${projectId}`);
         } else {
@@ -88,7 +77,7 @@ const SideNav = () => {
             </nav>
             <div className=" mt-10">
                 <button
-                    className={`mb-9 transform transition-transform duration-500 ${
+                    className={`mr-4 lg:mr-0 mb-9 transform transition-transform duration-500 ${
                         darkMode ? 'rotate-180' : 'rotate-0'
                     }`}
                     onClick={() => setDarkMode(prev => !prev)}

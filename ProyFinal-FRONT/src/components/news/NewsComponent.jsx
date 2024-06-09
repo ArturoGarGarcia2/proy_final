@@ -7,7 +7,7 @@ import { allowRoleAbove } from "../../utils/functions";
 import Swal from "sweetalert2";
 
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 
 const NewsComponent = ({newsEndpoints,project}) => {
@@ -44,7 +44,6 @@ const NewsComponent = ({newsEndpoints,project}) => {
                     text: response['hydra:description'],
                 });
             }else{
-                console.log(response)
                 setNewsItems(prev => [...prev,response])
                 Swal.fire({
                     icon:'success',
@@ -62,14 +61,14 @@ const NewsComponent = ({newsEndpoints,project}) => {
             for (const newsEndpoint of uniqueNewsEndpoints) {
                 const response = await api.get(newsEndpoint.substring(5), localStorage.getItem('token'));
                 if (response['@context'] === '/api/contexts/Error') {
-                    console.log('error en', newsEndpoint);
+                    console.error('error en', newsEndpoint);
                 } else {
                     fetchedNews.push(response);
                 }
             }
             setNewsItems(fetchedNews);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }finally{
             setLoading(false);
         }
@@ -96,7 +95,7 @@ const NewsComponent = ({newsEndpoints,project}) => {
             <div className='flex flex-wrap justify-evenly lg:justify-start gap-2'>
             
             {newsEndpoints.length !== 0 ? newsItems.map(newsItem => (
-                <NewsCard key={newsItem.id} newsItem={newsItem}/>
+                <NewsCard key={newsItem.id} newsItem={newsItem} setNewsItems={setNewsItems}/>
             )) : (
                 <p>No hay actualizaciones</p>
             )}

@@ -4,7 +4,7 @@ import ApiService from "../utils/ApiService";
 import ContextComponent from "../context/ContextComponent";
 import Spinner from "../components/Spinner";
 
-const api = new ApiService('http://127.0.0.1:8000/api');
+const api = new ApiService();
 
 const LoginPage = () => {
     const { setLogged, setUserData } = useContext(ContextComponent);
@@ -34,11 +34,11 @@ const LoginPage = () => {
                 setUserData(userDataResponse['hydra:member'].filter((user) => user.email.trim().toLowerCase() === formData.username.trim().toLowerCase())[0]);
                 navigate('/');
             } else {
-                console.log('Credenciales inválidas');
+                console.error('Credenciales inválidas');
             }
 
         } catch(error) {
-            console.log('Ha surgido un error', error);
+            console.error('Ha surgido un error', error);
         } finally {
             setLoading(false);
         }

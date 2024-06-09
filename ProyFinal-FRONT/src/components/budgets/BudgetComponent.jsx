@@ -26,7 +26,7 @@ const BudgetComponent = ({ budgetEndpoints, project, projectId }) => {
             for (const budgetEndpoint of uniqueBudgetEndpoints) {
                 const response = await api.get(budgetEndpoint.substring(5), localStorage.getItem('token'));
                 if (response['@context'] === '/api/contexts/Error') {
-                    console.log('error en', budgetEndpoint);
+                    console.error('error en', budgetEndpoint);
                 } else {
                     fetchedBudgets.push(response);
                 }
@@ -39,7 +39,7 @@ const BudgetComponent = ({ budgetEndpoints, project, projectId }) => {
 
             setBudgets(filteredBudgets);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -59,15 +59,13 @@ const BudgetComponent = ({ budgetEndpoints, project, projectId }) => {
                     cancelButtonText: 'Cancelar',
                     reverseButtons: true,
                 });
-    
-                console.log(budget)
 
                 if (confirmDelete.isConfirmed) {
                     for (const chapter of budget.chapters) {
                         try {
                             const response = await api.delete('chapters', chapter.split('/')[3], localStorage.getItem('token'));
                         } catch (chapterError) {
-                            console.log('error',chapterError)
+                            console.error('error',chapterError)
                         }
                     }
                     
