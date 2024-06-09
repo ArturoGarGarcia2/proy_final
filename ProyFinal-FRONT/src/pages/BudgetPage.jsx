@@ -92,7 +92,8 @@ const BudgetPage = () => {
                 <div className="w-4/5 m-auto">
                     <h1 className="text-3xl font-bold my-10">{budget.title}:</h1>
                     <div className="flex justify-evenly my-10 text-xl">
-                        <p className="border-2 rounded px-1 font-semibold text-white"><span className="text-black">Estado:</span> {
+                        <div className="flex">
+                        <span>Estado:</span><p className=" rounded px-1 font-semibold text-white"> {
                             budget.state === 'pending' ? (
                                 <span className="bg-green-700 border-2 border-green-900">Pendiente</span>
                             ) :
@@ -112,6 +113,7 @@ const BudgetPage = () => {
                                 <span className="bg-orange-800 border-2 border-orange-900">Cancelado</span>
                             ) : (<p>?</p>)
                         }</p>
+                        </div>
                         <p>Enviado el: {cureDate(budget.createDate).ddMMyyyy}</p>
                     </div>
                     <table className="w-full m-auto text-center border border-black">
@@ -169,7 +171,7 @@ const BudgetPage = () => {
                     {allowRoleEqual(userData.roles, 0) && budget.state === 'pending' && (
                         <div className="flex gap-10">
                             <button className="bg-[#01203C] text-white px-2 py-3 text-sm rounded-md my-5 hover:bg-[#21405C]" onClick={() => handleModifyBudget('accepted')}>Aceptar presupuesto</button>
-                            <button className="bg-white border-4 border-[#01203C] px-1 py-2 text-sm rounded-md my-5 hover:bg-slate-200" onClick={() => handleModifyBudget('rejected')}>Rechazar presupuesto</button>
+                            <button className="bg-white border-4 border-[#01203C] px-1 py-2 text-sm rounded-md my-5 hover:bg-slate-200 text-black" onClick={() => handleModifyBudget('rejected')}>Rechazar presupuesto</button>
                         </div>
                     )}
                     {allowRoleEqual(userData.roles, 0) && budget.state === 'accepted' && (
